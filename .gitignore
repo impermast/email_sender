@@ -1,6 +1,7 @@
 pass.txt
 mailing.yaml
 AGENTS.md
+.venv/
 logs/
 __pycache__/
 *.pyc

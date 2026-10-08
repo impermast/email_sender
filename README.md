@@ -10,18 +10,32 @@ EWS is recommended because sent messages are saved in Outlook Sent Items.
 
 ## Installation
 
-Install Python 3 and dependencies:
+Use Python 3.10 or newer. Create a virtual environment and install dependencies:
 
-    pip install -r requirements.txt
+    python3 -m venv .venv
+    . .venv/bin/activate
+    python3 -m pip install -r requirements.txt
 
-Create your configuration:
+Run the interactive first-time setup:
+
+    python3 get_start.py
+
+The setup asks for the MEPhI login and password, derives the mailbox address,
+updates only the `account` section of `mailing.yaml`, writes the password to
+`pass.txt` with owner-only permissions, and sends a test message to the same
+mailbox. Supported login formats are `ivanov`, `MEPHI\\ivanov`, and
+`ivanov@mephi.ru`.
+
+If you prefer to prepare the configuration manually instead of using
+`get_start.py`:
 
     cp mailing.example.yaml mailing.yaml
 
-Edit mailing.yaml.
+Then edit `mailing.yaml` and create `pass.txt` with the MEPhI password.
 
-Create pass.txt in the same directory.
-It must contain only your MEPhI mail password.
+If `mailing.yaml` does not exist, `get_start.py` creates it from
+`mailing.example.yaml`. Edit its recipients, subject, message, and attachments
+before using the production command.
 
 NEVER send or commit pass.txt.
 
@@ -41,27 +55,27 @@ SMTP:
 
 Check configuration:
 
-    python main.py check
+    python3 main.py check
 
 Preview messages without sending:
 
-    python main.py preview
+    python3 main.py preview
 
 Send a safe test:
 
-    python main.py test your_email@example.com
+    python3 main.py test your_email@example.com
 
 Test with CC:
 
-    python main.py test your_email@example.com --cc another@example.com
+    python3 main.py test your_email@example.com --cc another@example.com
 
 Show current mailing status:
 
-    python main.py status
+    python3 main.py status
 
 Start production mailing:
 
-    python main.py send
+    python3 main.py send
 
 The program asks for explicit confirmation before production sending.
 
@@ -91,7 +105,7 @@ Successful production deliveries are remembered.
 
 If the program is interrupted, running:
 
-    python main.py send
+    python3 main.py send
 
 again will skip recipients already marked as successfully delivered.
 
@@ -103,4 +117,6 @@ Never share:
 
     pass.txt
 
-Do not put passwords directly into mailing.yaml.
+Do not put passwords directly into `mailing.yaml`. The files `mailing.yaml`,
+`pass.txt`, `logs/`, and `.venv/` are excluded from Git by default. Review the
+recipient list and run `python3 main.py preview` before every production send.
