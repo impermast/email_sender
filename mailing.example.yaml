@@ -1,0 +1,34 @@
+mailing_id: example-mailing-001
+
+transport:
+  type: ews
+
+account:
+  username: your_username
+  email: your_username@mephi.ru
+
+global_subject: "Test mailing"
+
+global_message: |
+  Dear {{ recipient.display_name }},
+
+  {{ recipient.flag }}
+
+  Best regards,
+  Conference Organizing Committee
+
+global_cc: []
+global_bcc: []
+global_attachments: []
+
+global_delay_seconds: 2
+
+recipients:
+  - name: Test Recipient
+    email: recipient@example.com
+    title: "Dr."
+    flag: "This is a test message."
+    options: {}
+    attachments: []
+    cc: []
+    bcc: []

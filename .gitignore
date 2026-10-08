@@ -1,0 +1,7 @@
+pass.txt
+mailing.yaml
+AGENTS.md
+logs/
+__pycache__/
+*.pyc
+*.bak
